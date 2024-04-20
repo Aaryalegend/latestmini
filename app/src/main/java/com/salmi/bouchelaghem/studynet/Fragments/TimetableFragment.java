@@ -1,39 +1,36 @@
 package com.salmi.bouchelaghem.studynet.Fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
+
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.ImageView;
+
 import android.widget.LinearLayout;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+
 import com.salmi.bouchelaghem.studynet.Activities.AddClassActivity;
 import com.salmi.bouchelaghem.studynet.Activities.NavigationActivity;
+import com.salmi.bouchelaghem.studynet.Adapters.MyAdapter;
 import com.salmi.bouchelaghem.studynet.Adapters.SessionsAdapter;
+import com.salmi.bouchelaghem.studynet.Models.ClassItem;
 import com.salmi.bouchelaghem.studynet.Models.Section;
 import com.salmi.bouchelaghem.studynet.Models.Session;
 import com.salmi.bouchelaghem.studynet.Models.Student;
@@ -49,44 +46,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
-
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TimetableFragment extends Fragment {
 
     private FragmentTimetableBinding binding;
-
-    // Days
-    private boolean firstTime = true;
     private int currentDay = 1;
     private List<String> days;
 
     // Rec view
-    private List<Session> sessions;
-    private SessionsAdapter adapter;
 
-    // Filter
-    private Dialog dialog;
-    private boolean sectionSelected = false;
-    private String selectedSection;
     private boolean filterApplied = true;
-    private List<String> allSections;
-
-    // Current user
-    private final CurrentUser currentUser = CurrentUser.getInstance();
-    private final String currentUserType = currentUser.getUserType();
-
-    // Studynet Api
-    private StudynetAPI api;
-
-    private CustomLoadingDialog loadingDialog;
 
 
     @Override
@@ -96,15 +65,6 @@ public class TimetableFragment extends Fragment {
         View view = binding.getRoot();
 
         initRecView();
-
-        // Init retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Utils.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // Init our api
-        api = retrofit.create(StudynetAPI.class);
 
         NavigationActivity context = (NavigationActivity) getActivity();
         assert context != null;
@@ -117,9 +77,6 @@ public class TimetableFragment extends Fragment {
 //            intent.putExtra(Utils.ACTION, Utils.ACTION_ADD);
             startActivity(intent);
         });
-        //Init loading dialog
-//        loadingDialog = new CustomLoadingDialog(requireContext());
-
 
         // Init days
         days = Arrays.asList(getResources().getStringArray(R.array.days));
@@ -143,13 +100,12 @@ public class TimetableFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (filterApplied) {
-            getSessions(selectedSection);
-        }
+//        if (filterApplied) {
+//            getSessions(selectedSection);
+//        }
     }
 
     private void initRecView() {
-        sessions = new ArrayList<>();
         Context context = requireContext(); // Use requireContext() to ensure a non-null context
         binding.classesRecView.setLayoutManager(new LinearLayoutManager(context));
         binding.classesRecView.addItemDecoration(new DividerItemDecoration(context, LinearLayout.VERTICAL));
@@ -328,16 +284,27 @@ public class TimetableFragment extends Fragment {
 
     }
     private void showTodaySessions(int today) {
-        List<String> todaySessions = new ArrayList<>(Arrays.asList("Computer Networks", "Software Engineering", "Computer Architecture", "Theory of Computation", "Database Systems"));
+        // Dummy data for demonstration
+        List<ClassItem> todaySessions = new ArrayList<>();
+        todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+        todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+        todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+        int sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
+        if (sessionsCount == 1) {
+            binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+        } else {
+            binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+        }
+        binding.txtClassesCount.setText(String.valueOf(sessionsCount));
         // Show the sessions in the recycler view
         if (!todaySessions.isEmpty()) {
-//            adapter = new SessionsAdapter(todaySessions);
+            MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
             binding.classesRecView.setAdapter(adapter);
             binding.classesRecView.setVisibility(View.VISIBLE);
             binding.emptyMsg.setVisibility(View.GONE);
         } else {
-//            binding.classesRecView.setVisibility(View.GONE);
+            binding.classesRecView.setVisibility(View.GONE);
             binding.emptyMsg.setVisibility(View.VISIBLE);
         }
     }
