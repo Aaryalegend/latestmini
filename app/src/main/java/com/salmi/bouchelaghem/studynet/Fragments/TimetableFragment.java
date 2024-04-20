@@ -289,9 +289,7 @@ public class TimetableFragment extends Fragment {
         switch(today) {
             // Dummy data for demonstration
             case 1:
-                todaySessions.add(new ClassItem("1", "9:00 AM", "10:00 AM", "Environmental Science", "Lecturer A"));
-                todaySessions.add(new ClassItem("2", "10:15 AM", "11:15 AM", "Computer Architecture", "Lecturer B"));
-                todaySessions.add(new ClassItem("3", "11:15 AM", "12:15 PM", "Software Engineering", "Lecturer C"));
+                todaySessions.add(new ClassItem("1", "00:00 AM", "00:00 AM", "No Lectures Today", ""));
                 sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
                 if (sessionsCount == 1) {

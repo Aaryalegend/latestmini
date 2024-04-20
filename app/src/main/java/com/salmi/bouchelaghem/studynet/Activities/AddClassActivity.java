@@ -83,11 +83,8 @@ public class AddClassActivity extends AppCompatActivity {
     private Assignment selectedAssignment;
 
     private CustomLoadingDialog loadingDialog;
-
     // Current teacher
     private final CurrentUser currentUser = CurrentUser.getInstance();
-
-
 
     // Studynet Api
     private StudynetAPI api;
