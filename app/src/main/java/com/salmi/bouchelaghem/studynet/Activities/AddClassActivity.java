@@ -86,8 +86,8 @@ public class AddClassActivity extends AppCompatActivity {
 
     // Current teacher
     private final CurrentUser currentUser = CurrentUser.getInstance();
-    private final Teacher currentTeacher = currentUser.getCurrentTeacher();
-    private final List<Assignment> teacherAssignments = new ArrayList<>(currentTeacher.getAssignments());
+
+
 
     // Studynet Api
     private StudynetAPI api;
@@ -95,8 +95,9 @@ public class AddClassActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAddClassBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_add_class);
+//        binding = ActivityAddClassBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
 //        setContentView(R.layout.activity_add_class);
 //
 //        // Init retrofit
