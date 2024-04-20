@@ -44,6 +44,7 @@ public class NavigationActivity extends AppCompatActivity {
         //Init loading dialog
         loadingDialog = new CustomLoadingDialog(this);
         btnFilter = binding.btnFilter;
+        binding.navigationView.getMenu().clear();
         binding.navigationView.inflateMenu(R.menu.drawer_admin_menu);
 //        if (currentUser != null && currentUser.getUserType() != null) {
 //            if (currentUser.getUserType().equals(Utils.TEACHER_ACCOUNT)) {
@@ -62,7 +63,7 @@ public class NavigationActivity extends AppCompatActivity {
 //        }
 
         // If its a student then the default drawer menu will do
-//        binding.btnOpenDrawer.setOnClickListener(v -> binding.drawerLayout.openDrawer(GravityCompat.START));
+        binding.btnOpenDrawer.setOnClickListener(v -> binding.drawerLayout.openDrawer(GravityCompat.START));
 
         NavController navController = Navigation.findNavController(this, R.id.fragment);
         NavigationUI.setupWithNavController(binding.navigationView, navController);
