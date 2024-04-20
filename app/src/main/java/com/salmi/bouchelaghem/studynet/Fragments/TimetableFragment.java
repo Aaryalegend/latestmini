@@ -284,28 +284,148 @@ public class TimetableFragment extends Fragment {
 
     }
     private void showTodaySessions(int today) {
-        // Dummy data for demonstration
         List<ClassItem> todaySessions = new ArrayList<>();
-        todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
-        todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
-        todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
-        int sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+        int sessionsCount = 0;
+        switch(today) {
+            // Dummy data for demonstration
+            case 1:
+                todaySessions.add(new ClassItem("1", "9:00 AM", "10:00 AM", "Environmental Science", "Lecturer A"));
+                todaySessions.add(new ClassItem("2", "10:15 AM", "11:15 AM", "Computer Architecture", "Lecturer B"));
+                todaySessions.add(new ClassItem("3", "11:15 AM", "12:15 PM", "Software Engineering", "Lecturer C"));
+                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
-        if (sessionsCount == 1) {
-            binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
-        } else {
-            binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
-        }
-        binding.txtClassesCount.setText(String.valueOf(sessionsCount));
-        // Show the sessions in the recycler view
-        if (!todaySessions.isEmpty()) {
-            MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
-            binding.classesRecView.setAdapter(adapter);
-            binding.classesRecView.setVisibility(View.VISIBLE);
-            binding.emptyMsg.setVisibility(View.GONE);
-        } else {
-            binding.classesRecView.setVisibility(View.GONE);
-            binding.emptyMsg.setVisibility(View.VISIBLE);
+                if (sessionsCount == 1) {
+                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                } else {
+                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                }
+                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
+                // Show the sessions in the recycler view
+                if (!todaySessions.isEmpty()) {
+                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                    binding.classesRecView.setAdapter(adapter);
+                    binding.classesRecView.setVisibility(View.VISIBLE);
+                    binding.emptyMsg.setVisibility(View.GONE);
+                } else {
+                    binding.classesRecView.setVisibility(View.GONE);
+                    binding.emptyMsg.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 2:
+                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                if (sessionsCount == 1) {
+                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                } else {
+                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                }
+                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
+                // Show the sessions in the recycler view
+                if (!todaySessions.isEmpty()) {
+                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                    binding.classesRecView.setAdapter(adapter);
+                    binding.classesRecView.setVisibility(View.VISIBLE);
+                    binding.emptyMsg.setVisibility(View.GONE);
+                } else {
+                    binding.classesRecView.setVisibility(View.GONE);
+                    binding.emptyMsg.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 3:
+                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                if (sessionsCount == 1) {
+                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                } else {
+                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                }
+                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
+                // Show the sessions in the recycler view
+                if (!todaySessions.isEmpty()) {
+                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                    binding.classesRecView.setAdapter(adapter);
+                    binding.classesRecView.setVisibility(View.VISIBLE);
+                    binding.emptyMsg.setVisibility(View.GONE);
+                } else {
+                    binding.classesRecView.setVisibility(View.GONE);
+                    binding.emptyMsg.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 4:
+                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                if (sessionsCount == 1) {
+                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                } else {
+                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                }
+                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
+                // Show the sessions in the recycler view
+                if (!todaySessions.isEmpty()) {
+                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                    binding.classesRecView.setAdapter(adapter);
+                    binding.classesRecView.setVisibility(View.VISIBLE);
+                    binding.emptyMsg.setVisibility(View.GONE);
+                } else {
+                    binding.classesRecView.setVisibility(View.GONE);
+                    binding.emptyMsg.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 5:
+                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                if (sessionsCount == 1) {
+                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                } else {
+                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                }
+                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
+                // Show the sessions in the recycler view
+                if (!todaySessions.isEmpty()) {
+                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                    binding.classesRecView.setAdapter(adapter);
+                    binding.classesRecView.setVisibility(View.VISIBLE);
+                    binding.emptyMsg.setVisibility(View.GONE);
+                } else {
+                    binding.classesRecView.setVisibility(View.GONE);
+                    binding.emptyMsg.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 6:
+                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                if (sessionsCount == 1) {
+                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                } else {
+                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                }
+                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
+                // Show the sessions in the recycler view
+                if (!todaySessions.isEmpty()) {
+                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                    binding.classesRecView.setAdapter(adapter);
+                    binding.classesRecView.setVisibility(View.VISIBLE);
+                    binding.emptyMsg.setVisibility(View.GONE);
+                } else {
+                    binding.classesRecView.setVisibility(View.GONE);
+                    binding.emptyMsg.setVisibility(View.VISIBLE);
+                }
+                break;
         }
     }
 
