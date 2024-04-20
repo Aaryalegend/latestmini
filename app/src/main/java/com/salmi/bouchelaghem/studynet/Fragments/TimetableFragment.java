@@ -69,7 +69,7 @@ public class TimetableFragment extends Fragment {
         NavigationActivity context = (NavigationActivity) getActivity();
         assert context != null;
 
-        binding.selectSectionMsg.setVisibility(View.VISIBLE);
+//        binding.selectSectionMsg.setVisibility(View.VISIBLE);
 
         binding.btnAdd.setVisibility(View.VISIBLE);
         binding.btnAdd.setOnClickListener(v -> {
