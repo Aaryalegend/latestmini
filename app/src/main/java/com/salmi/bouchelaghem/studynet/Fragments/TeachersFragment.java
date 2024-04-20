@@ -102,7 +102,6 @@ public class TeachersFragment extends Fragment {
         NavigationActivity context = (NavigationActivity) getActivity();
         assert context != null;
 
-        if (userType.equals(Utils.ADMIN_ACCOUNT)) {
             // Show the select section msg
             binding.selectSectionMsg.setVisibility(View.VISIBLE);
 
@@ -168,11 +167,6 @@ public class TeachersFragment extends Fragment {
                     }
                 }
             });
-        } else if (userType.equals(Utils.STUDENT_ACCOUNT)) {
-            // Hide filter button
-            context.btnFilter.setVisibility(View.GONE);
-        }
-
         return view;
     }
 
@@ -182,11 +176,11 @@ public class TeachersFragment extends Fragment {
         adapter = new TeachersAdapter(getActivity());
 
         // Swipe to action in rec view
-        if (userType.equals(Utils.ADMIN_ACCOUNT)) {
+//        if (userType.equals(Utils.ADMIN_ACCOUNT)) {
             // If its a teacher then show delete + edit buttons
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(adminCallBack);
             itemTouchHelper.attachToRecyclerView(binding.teachersRecView);
-        }
+//        }
     }
 
     private void restoreFilterState(AutoCompleteTextView filter) {

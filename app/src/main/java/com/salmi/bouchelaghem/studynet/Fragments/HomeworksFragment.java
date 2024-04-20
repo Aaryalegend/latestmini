@@ -76,7 +76,7 @@ public class HomeworksFragment extends Fragment {
 
     // Current User
     private final CurrentUser currentUser = CurrentUser.getInstance();
-    private final String currentUserType = currentUser.getUserType();
+    private final String currentUserType = Utils.ADMIN_ACCOUNT;
 
     // Studynet Api
     private StudynetAPI api;
@@ -109,74 +109,74 @@ public class HomeworksFragment extends Fragment {
         context.btnFilter.setVisibility(View.VISIBLE);
 
         switch (currentUserType) {
-            case Utils.TEACHER_ACCOUNT:
-                // Get the current teacher from the app API
-                Teacher teacher = currentUser.getCurrentTeacher();
-
-                // Show the select section msg
-                binding.selectSectionMsg.setVisibility(View.VISIBLE);
-
-                // Show the add button
-                binding.btnAdd.setVisibility(View.VISIBLE);
-                binding.btnAdd.setOnClickListener(v -> {
-                    Intent intent = new Intent(context, AddHomeworkActivity.class);
-                    intent.putExtra(Utils.ACTION, Utils.ACTION_ADD);
-                    startActivity(intent);
-                });
-
-                // setup the filter
-                context.btnFilter.setOnClickListener(v -> {
-                    // Show the dialog only once
-                    if (dialog == null || !dialog.isShowing()) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        View view1 = View.inflate(context, R.layout.popup_sections_filter, null);
-                        // Init Views
-                        ImageView btnCloseFilter = view1.findViewById(R.id.btnCloseFilter);
-                        AutoCompleteTextView filterTimetableSection = view1.findViewById(R.id.filterTimetableSection);
-                        MaterialButton btnApplyFilter = view1.findViewById(R.id.btnApplyFilter);
-
-                        // Init sections list
-                        // Get all the sections
-                        List<String> sections = new ArrayList<>(teacher.getSections());
-                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, R.layout.dropdown_item, sections);
-                        filterTimetableSection.setAdapter(arrayAdapter);
-
-                        // set the filter values to the last filter applied
-                        if (filterApplied) {
-                            restoreSectionsFilterState(filterTimetableSection);
-                        }
-
-                        // Apply button
-                        btnApplyFilter.setOnClickListener(v1 -> {
-                            if (sectionSelected) {
-                                filterApplied = true;
-                                getHomeworks(selectedSection);
-                                binding.selectSectionMsg.setVisibility(View.GONE);
-                                dialog.dismiss();
-                            } else {
-                                Toast.makeText(getActivity(), getString(R.string.no_filter_msg), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                        // Close
-                        btnCloseFilter.setOnClickListener(v12 -> dialog.dismiss());
-
-                        // Sections spinner
-                        filterTimetableSection.setOnItemClickListener((parent, view11, position, id) -> {
-                            sectionSelected = true;
-                            selectedSection = sections.get(position);
-                        });
-
-                        builder.setView(view1);
-                        dialog = builder.create(); // creating our dialog
-                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        dialog.show();
-                        // Show rounded corners
-                        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-                        dialog.getWindow().setAttributes(params);
-                    }
-                });
-                break;
+//            case Utils.TEACHER_ACCOUNT:
+//                // Get the current teacher from the app API
+//                Teacher teacher = currentUser.getCurrentTeacher();
+//
+//                // Show the select section msg
+//                binding.selectSectionMsg.setVisibility(View.VISIBLE);
+//
+//                // Show the add button
+//                binding.btnAdd.setVisibility(View.VISIBLE);
+//                binding.btnAdd.setOnClickListener(v -> {
+//                    Intent intent = new Intent(context, AddHomeworkActivity.class);
+//                    intent.putExtra(Utils.ACTION, Utils.ACTION_ADD);
+//                    startActivity(intent);
+//                });
+//
+//                // setup the filter
+//                context.btnFilter.setOnClickListener(v -> {
+//                    // Show the dialog only once
+//                    if (dialog == null || !dialog.isShowing()) {
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                        View view1 = View.inflate(context, R.layout.popup_sections_filter, null);
+//                        // Init Views
+//                        ImageView btnCloseFilter = view1.findViewById(R.id.btnCloseFilter);
+//                        AutoCompleteTextView filterTimetableSection = view1.findViewById(R.id.filterTimetableSection);
+//                        MaterialButton btnApplyFilter = view1.findViewById(R.id.btnApplyFilter);
+//
+//                        // Init sections list
+//                        // Get all the sections
+//                        List<String> sections = new ArrayList<>(teacher.getSections());
+//                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, R.layout.dropdown_item, sections);
+//                        filterTimetableSection.setAdapter(arrayAdapter);
+//
+//                        // set the filter values to the last filter applied
+//                        if (filterApplied) {
+//                            restoreSectionsFilterState(filterTimetableSection);
+//                        }
+//
+//                        // Apply button
+//                        btnApplyFilter.setOnClickListener(v1 -> {
+//                            if (sectionSelected) {
+//                                filterApplied = true;
+//                                getHomeworks(selectedSection);
+//                                binding.selectSectionMsg.setVisibility(View.GONE);
+//                                dialog.dismiss();
+//                            } else {
+//                                Toast.makeText(getActivity(), getString(R.string.no_filter_msg), Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//
+//                        // Close
+//                        btnCloseFilter.setOnClickListener(v12 -> dialog.dismiss());
+//
+//                        // Sections spinner
+//                        filterTimetableSection.setOnItemClickListener((parent, view11, position, id) -> {
+//                            sectionSelected = true;
+//                            selectedSection = sections.get(position);
+//                        });
+//
+//                        builder.setView(view1);
+//                        dialog = builder.create(); // creating our dialog
+//                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                        dialog.show();
+//                        // Show rounded corners
+//                        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+//                        dialog.getWindow().setAttributes(params);
+//                    }
+//                });
+//                break;
             case Utils.ADMIN_ACCOUNT:
                 // Show the select section msg
                 binding.selectSectionMsg.setVisibility(View.VISIBLE);
@@ -234,80 +234,80 @@ public class HomeworksFragment extends Fragment {
                     }
                 });
                 break;
-            case Utils.STUDENT_ACCOUNT:
-                // Init filter
-                context.btnFilter.setOnClickListener(v -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    View view1 = View.inflate(context, R.layout.popup_student_homworks_filter, null);
-                    // Init Views
-                    ImageView btnCloseFilter = view1.findViewById(R.id.btnCloseFilter);
-                    AutoCompleteTextView filterHomeworksDate = view1.findViewById(R.id.filterHomeworksDate);
-                    MaterialButton btnApplyFilter = view1.findViewById(R.id.btnApplyFilter);
-
-                    // Init filter values
-                    List<String> filterValues = Arrays.asList(getResources().getStringArray(R.array.homework_filter_values));
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, R.layout.dropdown_item, filterValues);
-                    filterHomeworksDate.setAdapter(arrayAdapter);
-
-                    restoreDateFilterState(filterHomeworksDate); // set the filter values to the last filter applied
-
-                    // Init Buttons
-                    btnApplyFilter.setOnClickListener(v15 -> {
-                        if (dateSelected) {
-                            switch (filteredDatePosition) {
-                                case 0:
-                                    //Get all homeworks
-                                    adapter.setHomeworks(homeworks);
-                                    binding.homeworksRecView.setAdapter(adapter);
-                                    if (!homeworks.isEmpty()) {
-                                        binding.homeworksRecView.setVisibility(View.VISIBLE);
-                                        binding.emptyMsg.setVisibility(View.GONE);
-                                    } else {
-                                        binding.homeworksRecView.setVisibility(View.GONE);
-                                        binding.emptyMsg.setVisibility(View.VISIBLE);
-                                    }
-                                    break;
-                                case 1:
-                                    //Get yesterday's homeworks
-                                    filterHomeworksPlusDays(-1);
-                                    break;
-                                case 2:
-                                    //Get today's homeworks
-                                    filterHomeworksPlusDays(0);
-                                    break;
-                                case 3:
-                                    //Get tomorrow's homeworks
-                                    filterHomeworksPlusDays(1);
-                                    break;
-                                case 4:
-                                    //Get this week's homeworks
-                                    filterHomeworksThisWeek();
-                                    break;
-                            }
-                            filterApplied = true;
-                            dialog.dismiss();
-                        } else {
-                            Toast.makeText(requireContext(), getString(R.string.no_filter_msg), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                    btnCloseFilter.setOnClickListener(v12 -> dialog.dismiss());
-
-                    filterHomeworksDate.setOnItemClickListener((parent, view2, position, id) -> {
-                        filteredDatePosition = position;
-                        filteredDate = filterValues.get(position);
-                        dateSelected = true;
-                    });
-
-                    builder.setView(view1);
-                    dialog = builder.create(); // creating our dialog
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.show();
-                    // Show rounded corners
-                    WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-                    dialog.getWindow().setAttributes(params);
-                });
-                break;
+//            case Utils.STUDENT_ACCOUNT:
+//                // Init filter
+//                context.btnFilter.setOnClickListener(v -> {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                    View view1 = View.inflate(context, R.layout.popup_student_homworks_filter, null);
+//                    // Init Views
+//                    ImageView btnCloseFilter = view1.findViewById(R.id.btnCloseFilter);
+//                    AutoCompleteTextView filterHomeworksDate = view1.findViewById(R.id.filterHomeworksDate);
+//                    MaterialButton btnApplyFilter = view1.findViewById(R.id.btnApplyFilter);
+//
+//                    // Init filter values
+//                    List<String> filterValues = Arrays.asList(getResources().getStringArray(R.array.homework_filter_values));
+//                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, R.layout.dropdown_item, filterValues);
+//                    filterHomeworksDate.setAdapter(arrayAdapter);
+//
+//                    restoreDateFilterState(filterHomeworksDate); // set the filter values to the last filter applied
+//
+//                    // Init Buttons
+//                    btnApplyFilter.setOnClickListener(v15 -> {
+//                        if (dateSelected) {
+//                            switch (filteredDatePosition) {
+//                                case 0:
+//                                    //Get all homeworks
+//                                    adapter.setHomeworks(homeworks);
+//                                    binding.homeworksRecView.setAdapter(adapter);
+//                                    if (!homeworks.isEmpty()) {
+//                                        binding.homeworksRecView.setVisibility(View.VISIBLE);
+//                                        binding.emptyMsg.setVisibility(View.GONE);
+//                                    } else {
+//                                        binding.homeworksRecView.setVisibility(View.GONE);
+//                                        binding.emptyMsg.setVisibility(View.VISIBLE);
+//                                    }
+//                                    break;
+//                                case 1:
+//                                    //Get yesterday's homeworks
+//                                    filterHomeworksPlusDays(-1);
+//                                    break;
+//                                case 2:
+//                                    //Get today's homeworks
+//                                    filterHomeworksPlusDays(0);
+//                                    break;
+//                                case 3:
+//                                    //Get tomorrow's homeworks
+//                                    filterHomeworksPlusDays(1);
+//                                    break;
+//                                case 4:
+//                                    //Get this week's homeworks
+//                                    filterHomeworksThisWeek();
+//                                    break;
+//                            }
+//                            filterApplied = true;
+//                            dialog.dismiss();
+//                        } else {
+//                            Toast.makeText(requireContext(), getString(R.string.no_filter_msg), Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//
+//                    btnCloseFilter.setOnClickListener(v12 -> dialog.dismiss());
+//
+//                    filterHomeworksDate.setOnItemClickListener((parent, view2, position, id) -> {
+//                        filteredDatePosition = position;
+//                        filteredDate = filterValues.get(position);
+//                        dateSelected = true;
+//                    });
+//
+//                    builder.setView(view1);
+//                    dialog = builder.create(); // creating our dialog
+//                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                    dialog.show();
+//                    // Show rounded corners
+//                    WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+//                    dialog.getWindow().setAttributes(params);
+//                });
+//                break;
         }
 
         return view;
@@ -370,11 +370,11 @@ public class HomeworksFragment extends Fragment {
         adapter = new HomeworkAdapter(getContext());
 
         // Swipe to action in rec view
-        if (currentUserType.equals(Utils.TEACHER_ACCOUNT)) {
+//        if (currentUserType.equals(Utils.TEACHER_ACCOUNT)) {
             // If its a teacher then show delete + edit buttons
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(teacherCallBack);
             itemTouchHelper.attachToRecyclerView(binding.homeworksRecView);
-        }
+//        }
     }
 
     @Override
