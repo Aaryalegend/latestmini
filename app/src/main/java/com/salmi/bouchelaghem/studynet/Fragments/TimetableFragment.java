@@ -324,7 +324,7 @@ public class TimetableFragment extends Fragment {
 //        binding.loadingAnimation.setVisibility(View.VISIBLE);
 //        binding.loadingAnimation.playAnimation();
         // Get all the sessions for this section
-        Call<List<Session>> getSectionSessionsCall = api.getSectionSessions(sectionCode, "Token " + currentUser.getToken());
+//        Call<List<Session>> getSectionSessionsCall = api.getSectionSessions(sectionCode, "Token " + currentUser.getToken());
 
     }
     private void showTodaySessions(int today) {
