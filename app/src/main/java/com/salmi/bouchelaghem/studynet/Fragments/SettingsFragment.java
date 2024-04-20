@@ -68,15 +68,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         loadingDialog = new CustomLoadingDialog(requireContext());
         //Get the shared preferences.
         sharedPreferences = requireContext().getSharedPreferences(Utils.SHARED_PREFERENCES_USER_DATA, Context.MODE_PRIVATE);
-        // Init retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Utils.API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // Init our api, this will implement the code of all the methods in the interface.
-        api = retrofit.create(StudynetAPI.class);
-
         // Language List
         assert languageList != null;
         languageList.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -101,17 +92,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
 
         // Buttons
-        if (currentUser.getUserType().equals(Utils.STUDENT_ACCOUNT)) {
-            assert btnChangeSection != null;
-            btnChangeSection.setVisible(true);
-            btnChangeSection.setOnPreferenceClickListener(preference -> {
-                NavController navController = Navigation.findNavController(requireActivity(), R.id.fragment);
-                if (Objects.requireNonNull(navController.getCurrentDestination()).getId() != R.id.nav_change_section) {
-                    navController.navigate(R.id.action_nav_settings_to_changeSectionFragment);
-                }
-                return true;
-            });
-        }
+//        if (currentUser.getUserType().equals(Utils.STUDENT_ACCOUNT)) {
+//            assert btnChangeSection != null;
+//
+//        }
+        btnChangeSection.setVisible(true);
+        btnChangeSection.setOnPreferenceClickListener(preference -> {
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.fragment);
+            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() != R.id.nav_change_section) {
+                navController.navigate(R.id.action_nav_settings_to_changeSectionFragment);
+            }
+            return true;
+        });
 
         assert btnReportBugs != null;
         btnReportBugs.setOnPreferenceClickListener(preference -> {
