@@ -6,7 +6,9 @@ public class ClassItem {
     private String endHour;
     private String subject;
     private String type;
-
+    public ClassItem() {
+        // Default constructor required for Firestore
+    }
     public ClassItem(String group, String startHour, String endHour, String subject, String type) {
         this.group = group;
         this.startHour = startHour;

@@ -356,7 +356,16 @@ public class TimetableFragment extends Fragment {
                                         // Add ClassItem object to todaySessions list
                                         todaySessions.add(classItem);
                                     }
-                                    // Notify adapter or update UI with the new data
+                                    if (!todaySessions.isEmpty()) {
+                                        MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                                        binding.classesRecView.setAdapter(adapter);
+                                        binding.classesRecView.setVisibility(View.VISIBLE);
+                                        binding.emptyMsg.setVisibility(View.GONE);
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        binding.classesRecView.setVisibility(View.GONE);
+                                        binding.emptyMsg.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                         });
@@ -372,16 +381,6 @@ public class TimetableFragment extends Fragment {
                 }
                 binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
-                if (!todaySessions.isEmpty()) {
-                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
-                    binding.classesRecView.setAdapter(adapter);
-                    binding.classesRecView.setVisibility(View.VISIBLE);
-                    binding.emptyMsg.setVisibility(View.GONE);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    binding.classesRecView.setVisibility(View.GONE);
-                    binding.emptyMsg.setVisibility(View.VISIBLE);
-                }
 
                 break;
             case 3:
@@ -399,7 +398,16 @@ public class TimetableFragment extends Fragment {
                                         // Add ClassItem object to todaySessions list
                                         todaySessions.add(classItem);
                                     }
-//                                    adapter.notifyDataSetChanged();
+                                    if (!todaySessions.isEmpty()) {
+                                        MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                                        binding.classesRecView.setAdapter(adapter);
+                                        binding.classesRecView.setVisibility(View.VISIBLE);
+                                        binding.emptyMsg.setVisibility(View.GONE);
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        binding.classesRecView.setVisibility(View.GONE);
+                                        binding.emptyMsg.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                         });
@@ -415,16 +423,7 @@ public class TimetableFragment extends Fragment {
                 }
                 binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
-                if (!todaySessions.isEmpty()) {
-                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
-                    binding.classesRecView.setAdapter(adapter);
-                    binding.classesRecView.setVisibility(View.VISIBLE);
-                    binding.emptyMsg.setVisibility(View.GONE);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    binding.classesRecView.setVisibility(View.GONE);
-                    binding.emptyMsg.setVisibility(View.VISIBLE);
-                }
+
                 break;
             case 4:
                 dayDocumentId = "day4"; // Change this to match the document ID for the desired day
@@ -441,7 +440,16 @@ public class TimetableFragment extends Fragment {
                                         // Add ClassItem object to todaySessions list
                                         todaySessions.add(classItem);
                                     }
-                                    // Notify adapter or update UI with the new data
+                                    if (!todaySessions.isEmpty()) {
+                                        MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                                        binding.classesRecView.setAdapter(adapter);
+                                        binding.classesRecView.setVisibility(View.VISIBLE);
+                                        binding.emptyMsg.setVisibility(View.GONE);
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        binding.classesRecView.setVisibility(View.GONE);
+                                        binding.emptyMsg.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                         });
@@ -457,16 +465,7 @@ public class TimetableFragment extends Fragment {
                 }
                 binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
-                if (!todaySessions.isEmpty()) {
-                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
-                    binding.classesRecView.setAdapter(adapter);
-                    binding.classesRecView.setVisibility(View.VISIBLE);
-                    binding.emptyMsg.setVisibility(View.GONE);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    binding.classesRecView.setVisibility(View.GONE);
-                    binding.emptyMsg.setVisibility(View.VISIBLE);
-                }
+
                 break;
             case 5:
                 dayDocumentId = "day5"; // Change this to match the document ID for the desired day
@@ -483,7 +482,16 @@ public class TimetableFragment extends Fragment {
                                         // Add ClassItem object to todaySessions list
                                         todaySessions.add(classItem);
                                     }
-                                    // Notify adapter or update UI with the new data
+                                    if (!todaySessions.isEmpty()) {
+                                        MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                                        binding.classesRecView.setAdapter(adapter);
+                                        binding.classesRecView.setVisibility(View.VISIBLE);
+                                        binding.emptyMsg.setVisibility(View.GONE);
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        binding.classesRecView.setVisibility(View.GONE);
+                                        binding.emptyMsg.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                         });
@@ -499,16 +507,7 @@ public class TimetableFragment extends Fragment {
                 }
                 binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
-                if (!todaySessions.isEmpty()) {
-                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
-                    binding.classesRecView.setAdapter(adapter);
-                    binding.classesRecView.setVisibility(View.VISIBLE);
-                    binding.emptyMsg.setVisibility(View.GONE);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    binding.classesRecView.setVisibility(View.GONE);
-                    binding.emptyMsg.setVisibility(View.VISIBLE);
-                }
+
                 break;
             case 6:
                 dayDocumentId = "day5"; // Change this to match the document ID for the desired day
@@ -525,7 +524,16 @@ public class TimetableFragment extends Fragment {
                                         // Add ClassItem object to todaySessions list
                                         todaySessions.add(classItem);
                                     }
-                                    // Notify adapter or update UI with the new data
+                                    if (!todaySessions.isEmpty()) {
+                                        MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                                        binding.classesRecView.setAdapter(adapter);
+                                        binding.classesRecView.setVisibility(View.VISIBLE);
+                                        binding.emptyMsg.setVisibility(View.GONE);
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        binding.classesRecView.setVisibility(View.GONE);
+                                        binding.emptyMsg.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                         });
@@ -541,17 +549,7 @@ public class TimetableFragment extends Fragment {
                 }
                 binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
-                if (!todaySessions.isEmpty()) {
-                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
-                    binding.classesRecView.setAdapter(adapter);
-                    binding.classesRecView.setVisibility(View.VISIBLE);
-                    binding.emptyMsg.setVisibility(View.GONE);
-                    adapter.notifyDataSetChanged();
 
-                } else {
-                    binding.classesRecView.setVisibility(View.GONE);
-                    binding.emptyMsg.setVisibility(View.VISIBLE);
-                }
                 break;
         }
     }
