@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.salmi.bouchelaghem.studynet.Activities.AddClassActivity;
 import com.salmi.bouchelaghem.studynet.Activities.NavigationActivity;
 import com.salmi.bouchelaghem.studynet.Adapters.MyAdapter;
@@ -55,6 +56,7 @@ public class TimetableFragment extends Fragment {
 
     // Rec view
 
+
     private boolean filterApplied = true;
 
 
@@ -77,7 +79,7 @@ public class TimetableFragment extends Fragment {
 //            intent.putExtra(Utils.ACTION, Utils.ACTION_ADD);
             startActivity(intent);
         });
-
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Init days
         days = Arrays.asList(getResources().getStringArray(R.array.days));
 
@@ -304,6 +306,7 @@ public class TimetableFragment extends Fragment {
                     binding.classesRecView.setAdapter(adapter);
                     binding.classesRecView.setVisibility(View.VISIBLE);
                     binding.emptyMsg.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
                 } else {
                     binding.classesRecView.setVisibility(View.GONE);
                     binding.emptyMsg.setVisibility(View.VISIBLE);
@@ -327,10 +330,12 @@ public class TimetableFragment extends Fragment {
                     binding.classesRecView.setAdapter(adapter);
                     binding.classesRecView.setVisibility(View.VISIBLE);
                     binding.emptyMsg.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
                 } else {
                     binding.classesRecView.setVisibility(View.GONE);
                     binding.emptyMsg.setVisibility(View.VISIBLE);
                 }
+
                 break;
             case 3:
                 todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
@@ -350,6 +355,7 @@ public class TimetableFragment extends Fragment {
                     binding.classesRecView.setAdapter(adapter);
                     binding.classesRecView.setVisibility(View.VISIBLE);
                     binding.emptyMsg.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
                 } else {
                     binding.classesRecView.setVisibility(View.GONE);
                     binding.emptyMsg.setVisibility(View.VISIBLE);
@@ -373,6 +379,7 @@ public class TimetableFragment extends Fragment {
                     binding.classesRecView.setAdapter(adapter);
                     binding.classesRecView.setVisibility(View.VISIBLE);
                     binding.emptyMsg.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
                 } else {
                     binding.classesRecView.setVisibility(View.GONE);
                     binding.emptyMsg.setVisibility(View.VISIBLE);
@@ -396,6 +403,7 @@ public class TimetableFragment extends Fragment {
                     binding.classesRecView.setAdapter(adapter);
                     binding.classesRecView.setVisibility(View.VISIBLE);
                     binding.emptyMsg.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
                 } else {
                     binding.classesRecView.setVisibility(View.GONE);
                     binding.emptyMsg.setVisibility(View.VISIBLE);
@@ -419,6 +427,8 @@ public class TimetableFragment extends Fragment {
                     binding.classesRecView.setAdapter(adapter);
                     binding.classesRecView.setVisibility(View.VISIBLE);
                     binding.emptyMsg.setVisibility(View.GONE);
+                    adapter.notifyDataSetChanged();
+
                 } else {
                     binding.classesRecView.setVisibility(View.GONE);
                     binding.emptyMsg.setVisibility(View.VISIBLE);
