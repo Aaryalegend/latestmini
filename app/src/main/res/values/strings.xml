@@ -2,12 +2,12 @@
     <string name="app_name" translatable="false">Timetune</string>
 
     <string-array name="days">
-        <item>Saturday</item>
-        <item>Sunday</item>
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
         <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
     </string-array>
 
     <string-array name="homework_filter_values">
@@ -66,6 +66,7 @@
     <string name="tue">Tue</string>
     <string name="wed">Wed</string>
     <string name="thu">Thu</string>
+    <string name="fri" translatable="false">Fri</string>
     <string name="you_have">You have</string>
     <string name="classes">classes</string>
     <string name="class_1">class</string>
@@ -212,7 +213,7 @@
     <string name="delete_your_homework_msg">You can only delete your own homeworks</string>
     <string name="edit_your_homework_msg">You can only edit your own homeworks.</string>
     <string name="homework_edited_success">Homework updated successfully</string>
-    <string name="saturday">Saturday</string>
+    <string name="monday" translatable="false">Monday</string>
     <string name="key_change_section" translatable="false">CHANGE_SECTION</string>
     <string name="change_section">Change section and group</string>
     <string name="change_section_msg">Change your section and your group</string>
