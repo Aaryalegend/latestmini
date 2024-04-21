@@ -88,7 +88,7 @@ public class TimetableFragment extends Fragment {
 //            intent.putExtra(Utils.ACTION, Utils.ACTION_ADD);
             startActivity(intent);
         });
-
+        goToToday();
         // Init days
         days = Arrays.asList(getResources().getStringArray(R.array.days));
 
@@ -123,7 +123,6 @@ public class TimetableFragment extends Fragment {
 //        adapter = new SessionsAdapter((List<String>) context);
     }
 
-
     /* Go to day X methods */
     private void goToToday() {
         // Used ViewTreeObserver to wait for the UI to be sized and then we can get the the view's width
@@ -134,23 +133,23 @@ public class TimetableFragment extends Fragment {
                 // Show today's classes by default
                 Calendar calendar = Calendar.getInstance();
                 switch (calendar.get(Calendar.DAY_OF_WEEK)) {
-                    case 0:
-                    case 6: // If its the weekend then show him the classes of the first day of next week
+                    case 7:
+                    case 1: // If its the weekend then show him the classes of the first day of next week
                         goToDay1();
                         break;
-                    case 1:
+                    case 2:
                         goToDay2();
                         break;
-                    case 2:
+                    case 3:
                         goToDay3();
                         break;
-                    case 3:
+                    case 4:
                         goToDay4();
                         break;
-                    case 4:
+                    case 5:
                         goToDay5();
                         break;
-                    case 5:
+                    case 6:
                         goToDay6();
                         break;
                 }
@@ -295,7 +294,7 @@ public class TimetableFragment extends Fragment {
 
     }
     String collectionName = "timetable";
-    private void showTodaySessions(int today) {
+    public void showTodaySessions(int today) {
         List<ClassItem> todaySessions = new ArrayList<>();
         String dayDocumentId;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
