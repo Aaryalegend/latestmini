@@ -89,8 +89,8 @@
     <!--    Subject + Type-->
     <TextView
         android:id="@+id/txtClassSubject"
-        android:layout_width="123dp"
-        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/tabularasa_regular"
         android:text="Lecture Name"
         android:textColor="@color/primary_text_color"
