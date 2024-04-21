@@ -519,7 +519,7 @@ public class TimetableFragment extends Fragment {
 
                 break;
             case 6:
-                dayDocumentId = "day5"; // Change this to match the document ID for the desired day
+                dayDocumentId = "day6"; // Change this to match the document ID for the desired day
                 db.collection(collectionName).document(dayDocumentId)
                         .collection("classes") // Assuming classes are stored in a subcollection
                         .get()
