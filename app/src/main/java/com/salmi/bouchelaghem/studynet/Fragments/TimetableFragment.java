@@ -133,23 +133,23 @@ public class TimetableFragment extends Fragment {
                 // Show today's classes by default
                 Calendar calendar = Calendar.getInstance();
                 switch (calendar.get(Calendar.DAY_OF_WEEK)) {
-                    case 7:
-                    case 1: // If its the weekend then show him the classes of the first day of next week
+                    case 1:
+                    case 2: //Monday
                         goToDay1();
                         break;
-                    case 2:
+                    case 3://Tuesday
                         goToDay2();
                         break;
-                    case 3:
+                    case 4:
                         goToDay3();
                         break;
-                    case 4:
+                    case 5:
                         goToDay4();
                         break;
-                    case 5:
+                    case 6:
                         goToDay5();
                         break;
-                    case 6:
+                    case 7:
                         goToDay6();
                         break;
                 }
