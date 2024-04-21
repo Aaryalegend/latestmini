@@ -160,7 +160,7 @@ public class TimetableFragment extends Fragment {
     private void goToDay1() {
         currentDay = 1;
         // Adding an animation
-        binding.selectedDay.animate().x(0).setDuration(100);
+        binding.selectedDay.animate().x(0).setDuration(300);
         // Changing text colors
         binding.day1.setTextColor(Color.WHITE);
         binding.day2.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
@@ -182,7 +182,7 @@ public class TimetableFragment extends Fragment {
     private void goToDay2() {
         currentDay = 2;
         int size = binding.day2.getWidth();
-        binding.selectedDay.animate().x(size).setDuration(100);
+        binding.selectedDay.animate().x(size).setDuration(300);
         binding.day1.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
         binding.day2.setTextColor(Color.WHITE);
         binding.day3.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
@@ -203,7 +203,7 @@ public class TimetableFragment extends Fragment {
     private void goToDay3() {
         currentDay = 3;
         int size = binding.day2.getWidth() * 2;
-        binding.selectedDay.animate().x(size).setDuration(100);
+        binding.selectedDay.animate().x(size).setDuration(300);
         binding.day1.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
         binding.day2.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
         binding.day3.setTextColor(Color.WHITE);
@@ -224,7 +224,7 @@ public class TimetableFragment extends Fragment {
     private void goToDay4() {
         currentDay = 4;
         int size = binding.day2.getWidth() * 3;
-        binding.selectedDay.animate().x(size).setDuration(100);
+        binding.selectedDay.animate().x(size).setDuration(300);
         binding.day1.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
         binding.day2.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
         binding.day3.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
@@ -245,7 +245,7 @@ public class TimetableFragment extends Fragment {
     private void goToDay5() {
         currentDay = 5;
         int size = binding.day2.getWidth() * 4;
-        binding.selectedDay.animate().x(size).setDuration(100);
+        binding.selectedDay.animate().x(size).setDuration(300);
         binding.day1.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
         binding.day2.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
         binding.day3.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
@@ -266,7 +266,7 @@ public class TimetableFragment extends Fragment {
     private void goToDay6() {
         currentDay = 6;
         int size = binding.day2.getWidth() * 5;
-        binding.selectedDay.animate().x(size).setDuration(100);
+        binding.selectedDay.animate().x(size).setDuration(300);
         binding.day1.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
         binding.day2.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
         binding.day3.setTextColor(getResources().getColor(R.color.secondary_text_color, null));
