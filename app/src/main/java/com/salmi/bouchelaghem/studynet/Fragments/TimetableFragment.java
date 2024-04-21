@@ -1,18 +1,22 @@
 package com.salmi.bouchelaghem.studynet.Fragments;
 
 
+import static android.app.ProgressDialog.show;
+
 import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Color;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -23,12 +27,17 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.salmi.bouchelaghem.studynet.Activities.AddClassActivity;
 import com.salmi.bouchelaghem.studynet.Activities.NavigationActivity;
+import com.salmi.bouchelaghem.studynet.Activities.SignUpActivity;
 import com.salmi.bouchelaghem.studynet.Adapters.MyAdapter;
 import com.salmi.bouchelaghem.studynet.Adapters.SessionsAdapter;
 import com.salmi.bouchelaghem.studynet.Models.ClassItem;
@@ -79,7 +88,7 @@ public class TimetableFragment extends Fragment {
 //            intent.putExtra(Utils.ACTION, Utils.ACTION_ADD);
             startActivity(intent);
         });
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         // Init days
         days = Arrays.asList(getResources().getStringArray(R.array.days));
 
@@ -285,13 +294,42 @@ public class TimetableFragment extends Fragment {
 //        Call<List<Session>> getSectionSessionsCall = api.getSectionSessions(sectionCode, "Token " + currentUser.getToken());
 
     }
+    String collectionName = "timetable";
     private void showTodaySessions(int today) {
         List<ClassItem> todaySessions = new ArrayList<>();
+        String dayDocumentId;
         int sessionsCount = 0;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         switch(today) {
             // Dummy data for demonstration
             case 1:
-                todaySessions.add(new ClassItem("1", "00:00 AM", "00:00 AM", "No Lectures Today", ""));
+                dayDocumentId = "day1"; // Change this to match the document ID for the desired day
+                db.collection(collectionName).document(dayDocumentId)
+                        .collection("classes") // Assuming classes are stored in a subcollection
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        // Convert Firestore document to ClassItem object
+                                        ClassItem classItem = document.toObject(ClassItem.class);
+                                        // Add ClassItem object to todaySessions list
+                                        todaySessions.add(classItem);
+                                    }
+                                    if (!todaySessions.isEmpty()) {
+                                        MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
+                                        binding.classesRecView.setAdapter(adapter);
+                                        binding.classesRecView.setVisibility(View.VISIBLE);
+                                        binding.emptyMsg.setVisibility(View.GONE);
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        binding.classesRecView.setVisibility(View.GONE);
+                                        binding.emptyMsg.setVisibility(View.VISIBLE);
+                                    }
+                                }
+                            }
+                        });
                 sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
                 if (sessionsCount == 1) {
@@ -301,21 +339,30 @@ public class TimetableFragment extends Fragment {
                 }
                 binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
-                if (!todaySessions.isEmpty()) {
-                    MyAdapter adapter = new MyAdapter(todaySessions); // MyAdapter is the RecyclerView adapter class
-                    binding.classesRecView.setAdapter(adapter);
-                    binding.classesRecView.setVisibility(View.VISIBLE);
-                    binding.emptyMsg.setVisibility(View.GONE);
-                    adapter.notifyDataSetChanged();
-                } else {
-                    binding.classesRecView.setVisibility(View.GONE);
-                    binding.emptyMsg.setVisibility(View.VISIBLE);
-                }
+
                 break;
             case 2:
-                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
-                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
-                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                dayDocumentId = "day2"; // Change this to match the document ID for the desired day
+                db.collection(collectionName).document(dayDocumentId)
+                        .collection("classes") // Assuming classes are stored in a subcollection
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        // Convert Firestore document to ClassItem object
+                                        ClassItem classItem = document.toObject(ClassItem.class);
+                                        // Add ClassItem object to todaySessions list
+                                        todaySessions.add(classItem);
+                                    }
+                                    // Notify adapter or update UI with the new data
+                                }
+                            }
+                        });
+//                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+//                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+//                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
                 sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
                 if (sessionsCount == 1) {
@@ -338,9 +385,27 @@ public class TimetableFragment extends Fragment {
 
                 break;
             case 3:
-                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
-                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
-                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                dayDocumentId = "day3"; // Change this to match the document ID for the desired day
+                db.collection(collectionName).document(dayDocumentId)
+                        .collection("classes") // Assuming classes are stored in a subcollection
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        // Convert Firestore document to ClassItem object
+                                        ClassItem classItem = document.toObject(ClassItem.class);
+                                        // Add ClassItem object to todaySessions list
+                                        todaySessions.add(classItem);
+                                    }
+//                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
+//                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+//                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+//                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
                 sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
                 if (sessionsCount == 1) {
@@ -362,9 +427,27 @@ public class TimetableFragment extends Fragment {
                 }
                 break;
             case 4:
-                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
-                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
-                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                dayDocumentId = "day4"; // Change this to match the document ID for the desired day
+                db.collection(collectionName).document(dayDocumentId)
+                        .collection("classes") // Assuming classes are stored in a subcollection
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        // Convert Firestore document to ClassItem object
+                                        ClassItem classItem = document.toObject(ClassItem.class);
+                                        // Add ClassItem object to todaySessions list
+                                        todaySessions.add(classItem);
+                                    }
+                                    // Notify adapter or update UI with the new data
+                                }
+                            }
+                        });
+//                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+//                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+//                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
                 sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
                 if (sessionsCount == 1) {
@@ -386,9 +469,27 @@ public class TimetableFragment extends Fragment {
                 }
                 break;
             case 5:
-                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
-                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
-                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                dayDocumentId = "day5"; // Change this to match the document ID for the desired day
+                db.collection(collectionName).document(dayDocumentId)
+                        .collection("classes") // Assuming classes are stored in a subcollection
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        // Convert Firestore document to ClassItem object
+                                        ClassItem classItem = document.toObject(ClassItem.class);
+                                        // Add ClassItem object to todaySessions list
+                                        todaySessions.add(classItem);
+                                    }
+                                    // Notify adapter or update UI with the new data
+                                }
+                            }
+                        });
+//                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+//                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+//                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
                 sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
                 if (sessionsCount == 1) {
@@ -410,9 +511,27 @@ public class TimetableFragment extends Fragment {
                 }
                 break;
             case 6:
-                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
-                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
-                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
+                dayDocumentId = "day5"; // Change this to match the document ID for the desired day
+                db.collection(collectionName).document(dayDocumentId)
+                        .collection("classes") // Assuming classes are stored in a subcollection
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        // Convert Firestore document to ClassItem object
+                                        ClassItem classItem = document.toObject(ClassItem.class);
+                                        // Add ClassItem object to todaySessions list
+                                        todaySessions.add(classItem);
+                                    }
+                                    // Notify adapter or update UI with the new data
+                                }
+                            }
+                        });
+//                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
+//                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
+//                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
                 sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
                 if (sessionsCount == 1) {
