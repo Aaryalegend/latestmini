@@ -20,6 +20,7 @@ import com.salmi.bouchelaghem.studynet.R;
 import com.salmi.bouchelaghem.studynet.Utils.CurrentUser;
 import com.salmi.bouchelaghem.studynet.Utils.CustomLoadingDialog;
 
+import com.salmi.bouchelaghem.studynet.Utils.Utils;
 import com.salmi.bouchelaghem.studynet.databinding.ActivityNavigationBinding;
 
 
@@ -75,8 +76,11 @@ public class NavigationActivity extends AppCompatActivity {
         btnLogout.setOnMenuItemClickListener(item -> {
             if (currentUser != null && currentUser.getUserType() != null) {
                 loadingDialog.show();
+                clearUserState();
             } else {
                 // Take the user to the login page.
+                clearUserState();
+
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(NavigationActivity.this, getString(R.string.logout_msg), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(NavigationActivity.this, LoginActivity.class));
@@ -84,5 +88,13 @@ public class NavigationActivity extends AppCompatActivity {
             }
             return true;
         });
+    }
+
+    private void clearUserState() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Utils.USER_LOGGED_IN, false);
+        // Remove any other user-related data from shared preferences if needed
+        editor.apply();
     }
 }

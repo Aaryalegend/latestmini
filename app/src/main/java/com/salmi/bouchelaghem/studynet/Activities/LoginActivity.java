@@ -75,7 +75,8 @@ public class LoginActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    // Proceed with your app flow
+                                    // Save user state using shared preferences
+                                    saveUserState(user);
 //                                    Toast.makeText(SignUpActivity.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
                                     startActivity(intent);
@@ -92,6 +93,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void saveUserState(FirebaseUser user) {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Utils.USER_LOGGED_IN, true);
+        // Add more user information if needed
+        editor.apply();
+    }
     public boolean validateEmail() {
         String email = binding.txtLoginEmail.getEditText().getText().toString().trim();
 

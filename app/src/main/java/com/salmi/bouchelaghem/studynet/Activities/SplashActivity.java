@@ -77,6 +77,19 @@ public class SplashActivity extends AppCompatActivity {
         verifyInternet();
 
         binding.btnTryAgain.setOnClickListener(v -> verifyInternet());
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        boolean isUserLoggedIn = sharedPreferences.getBoolean(Utils.USER_LOGGED_IN, false);
+
+        if (isUserLoggedIn) {
+            // User is already signed in, navigate to NavigationActivity
+            startActivity(new Intent(SplashActivity.this, NavigationActivity.class));
+            finish();
+        } else {
+            // User is not signed in, navigate to OnboardingActivity or LoginActivity
+            // Depending on your app flow
+            startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
+            finish();
+        }
     }
 
     private void verifyInternet() {
@@ -88,15 +101,18 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             //Check if the user is already logged in using shared preferences.
             if (sharedPreferences.getBoolean(Utils.SHARED_PREFERENCES_LOGGED_IN, false)) {
-                loadUserData();
+//                loadUserData();
             } else {
-                new Handler().postDelayed(() -> {
-                    startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
-                    finish();
-                }, 1000);
+//                new Handler().postDelayed(() -> {
+//                    startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
+//                    finish();
+//                }, 1000);
             }
         }
     }
+//    SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+
+
 
     /**
      * Loads the saved data of the user from shared preferences.

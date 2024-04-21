@@ -8,6 +8,8 @@ public class Utils {
     public static final String API_BASE_URL = "https://timetune-4f797-default-rtdb.firebaseio.com/";
 
     // Tables
+    public static boolean UserLoggedIn = false;
+    public static final String USER_LOGGED_IN = "user_logged_in";
     public static final String HOMEWORK = "Homework";
     public static final String TEACHER = "Teacher";
     public static final String SESSION = "Session";
