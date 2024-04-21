@@ -298,7 +298,6 @@ public class TimetableFragment extends Fragment {
     private void showTodaySessions(int today) {
         List<ClassItem> todaySessions = new ArrayList<>();
         String dayDocumentId;
-        int sessionsCount = 0;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         switch(today) {
             // Dummy data for demonstration
@@ -327,17 +326,19 @@ public class TimetableFragment extends Fragment {
                                         binding.classesRecView.setVisibility(View.GONE);
                                         binding.emptyMsg.setVisibility(View.VISIBLE);
                                     }
+                                    int sessionsCount = 0;
+                                    sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                                    if (sessionsCount == 1) {
+                                        binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                                    } else {
+                                        binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                                    }
+                                    binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                                 }
                             }
                         });
-                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
-                if (sessionsCount == 1) {
-                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
-                } else {
-                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
-                }
-                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
 
                 break;
@@ -366,20 +367,22 @@ public class TimetableFragment extends Fragment {
                                         binding.classesRecView.setVisibility(View.GONE);
                                         binding.emptyMsg.setVisibility(View.VISIBLE);
                                     }
+                                    int sessionsCount = 0;
+                                    sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                                    if (sessionsCount == 1) {
+                                        binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                                    } else {
+                                        binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                                    }
+                                    binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                                 }
                             }
                         });
 //                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
 //                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
 //                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
-                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
-                if (sessionsCount == 1) {
-                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
-                } else {
-                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
-                }
-                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
 
                 break;
@@ -408,20 +411,22 @@ public class TimetableFragment extends Fragment {
                                         binding.classesRecView.setVisibility(View.GONE);
                                         binding.emptyMsg.setVisibility(View.VISIBLE);
                                     }
+                                    int sessionsCount = 0;
+                                    sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                                    if (sessionsCount == 1) {
+                                        binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                                    } else {
+                                        binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                                    }
+                                    binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                                 }
                             }
                         });
 //                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
 //                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
 //                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
-                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
-                if (sessionsCount == 1) {
-                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
-                } else {
-                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
-                }
-                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
 
                 break;
@@ -450,20 +455,22 @@ public class TimetableFragment extends Fragment {
                                         binding.classesRecView.setVisibility(View.GONE);
                                         binding.emptyMsg.setVisibility(View.VISIBLE);
                                     }
+                                    int sessionsCount = 0;
+                                    sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                                    if (sessionsCount == 1) {
+                                        binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                                    } else {
+                                        binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                                    }
+                                    binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                                 }
                             }
                         });
 //                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
 //                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
 //                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
-                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
-                if (sessionsCount == 1) {
-                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
-                } else {
-                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
-                }
-                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
 
                 break;
@@ -492,20 +499,22 @@ public class TimetableFragment extends Fragment {
                                         binding.classesRecView.setVisibility(View.GONE);
                                         binding.emptyMsg.setVisibility(View.VISIBLE);
                                     }
+                                    int sessionsCount = 0;
+                                    sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                                    if (sessionsCount == 1) {
+                                        binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                                    } else {
+                                        binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                                    }
+                                    binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                                 }
                             }
                         });
 //                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
 //                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
 //                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
-                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
-                if (sessionsCount == 1) {
-                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
-                } else {
-                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
-                }
-                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
 
                 break;
@@ -534,20 +543,22 @@ public class TimetableFragment extends Fragment {
                                         binding.classesRecView.setVisibility(View.GONE);
                                         binding.emptyMsg.setVisibility(View.VISIBLE);
                                     }
+                                    int sessionsCount = 0;
+                                    sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
+
+                                    if (sessionsCount == 1) {
+                                        binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
+                                    } else {
+                                        binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
+                                    }
+                                    binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                                 }
                             }
                         });
 //                todaySessions.add(new ClassItem("1", "8:00 AM", "9:30 AM", "Computer Networks", "Lecturer A"));
 //                todaySessions.add(new ClassItem("2", "9:45 AM", "11:15 AM", "Software Engineering", "Lecturer B"));
 //                todaySessions.add(new ClassItem("3", "11:30 AM", "1:00 PM", "Computer Architecture", "Lecturer C"));
-                sessionsCount = todaySessions.size(); // Assuming todaySessions is the list of sessions for the day
 
-                if (sessionsCount == 1) {
-                    binding.textView4.setText(getString(R.string.class_1)); // Assuming R.string.class_1 contains the string "class"
-                } else {
-                    binding.textView4.setText(getString(R.string.classes)); // Assuming R.string.classes contains the string "classes"
-                }
-                binding.txtClassesCount.setText(String.valueOf(sessionsCount));
                 // Show the sessions in the recycler view
 
                 break;
