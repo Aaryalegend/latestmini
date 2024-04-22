@@ -36,6 +36,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.txtClassEndHour.setText(item.getEndHour());
         holder.txtClassSubject.setText(item.getSubject());
         holder.txtClassType.setText(item.getType());
+        holder.imgBookmark.setVisibility(item.isShowBookmark() ? View.VISIBLE : View.GONE);
+
     }
 
     @Override

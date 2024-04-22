@@ -6,6 +6,7 @@ public class ClassItem {
     private String endHour;
     private String subject;
     private String type;
+    private boolean showBookmark;
     public ClassItem() {
         // Default constructor required for Firestore
     }
@@ -55,5 +56,14 @@ public class ClassItem {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isShowBookmark() {
+        return showBookmark;
+    }
+
+    // Setter for bookmark
+    public void setBookmark(boolean bookmark) {
+        this.showBookmark = bookmark;
     }
 }
