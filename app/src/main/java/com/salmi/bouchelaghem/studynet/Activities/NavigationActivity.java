@@ -71,12 +71,12 @@ public class NavigationActivity extends AppCompatActivity {
         class2Spinner = findViewById(R.id.class2);
         swapButton = findViewById(R.id.btnSwap);
 
-        dayList.add("day1");
-        dayList.add("day2");
-        dayList.add("day3");
-        dayList.add("day4");
-        dayList.add("day5");
-        dayList.add("day6");
+        dayList.add("Monday");
+        dayList.add("Tuesday");
+        dayList.add("Wednesday");
+        dayList.add("Thursday");
+        dayList.add("Friday");
+        dayList.add("Saturday");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(NavigationActivity.this, android.R.layout.simple_spinner_item, dayList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         day1Spinner.setAdapter(adapter);
@@ -84,7 +84,29 @@ public class NavigationActivity extends AppCompatActivity {
         day1Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String selectedDay = (String) adapterView.getItemAtPosition(position);
+                String temp = (String) adapterView.getItemAtPosition(position);
+                String selectedDay = "";
+                switch(temp){
+                    case "Monday":
+                        selectedDay = "day1";
+                        break;
+                    case "Tuesday":
+                        selectedDay = "day2";
+                        break;
+                    case "Wednesday":
+                        selectedDay = "day3";
+                        break;
+                    case "Thursday":
+                        selectedDay = "day4";
+                        break;
+                    case "Friday":
+                        selectedDay = "day5";
+                        break;
+                    case "Saturday":
+                        selectedDay = "day6";
+                        break;
+                }
+
                 // Populate class1Spinner based on selectedDay
                 populateClassesSpinner(selectedDay, class1Spinner);
             }
@@ -98,7 +120,29 @@ public class NavigationActivity extends AppCompatActivity {
         day2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String selectedDay = (String) adapterView.getItemAtPosition(position);
+                String temp = (String) adapterView.getItemAtPosition(position);
+                String selectedDay = "";
+                switch(temp){
+                    case "Monday":
+                        selectedDay = "day1";
+                        break;
+                    case "Tuesday":
+                        selectedDay = "day2";
+                        break;
+                    case "Wednesday":
+                        selectedDay = "day3";
+                        break;
+                    case "Thursday":
+                        selectedDay = "day4";
+                        break;
+                    case "Friday":
+                        selectedDay = "day5";
+                        break;
+                    case "Saturday":
+                        selectedDay = "day6";
+                        break;
+                }
+
                 // Populate class2Spinner based on selectedDay
                 populateClassesSpinner(selectedDay, class2Spinner);
             }
@@ -198,8 +242,51 @@ public class NavigationActivity extends AppCompatActivity {
     }
     private void swapClasses() {
         // Get the selected days and classes from spinners
-        String day1 = day1Spinner.getSelectedItem().toString();
-        String day2 = day2Spinner.getSelectedItem().toString();
+        String temp = day1Spinner.getSelectedItem().toString();
+        String day1 = "";
+        switch(temp){
+            case "Monday":
+                day1 = "day1";
+                break;
+            case "Tuesday":
+                day1 = "day2";
+                break;
+            case "Wednesday":
+                day1 = "day3";
+                break;
+            case "Thursday":
+                day1 = "day4";
+                break;
+            case "Friday":
+                day1 = "day5";
+                break;
+            case "Saturday":
+                day1 = "day6";
+                break;
+        }
+
+        String temp2 = day2Spinner.getSelectedItem().toString();
+        String day2 = "";
+        switch(temp2){
+            case "Monday":
+                day2 = "day1";
+                break;
+            case "Tuesday":
+                day2 = "day2";
+                break;
+            case "Wednesday":
+                day2 = "day3";
+                break;
+            case "Thursday":
+                day2 = "day4";
+                break;
+            case "Friday":
+                day2 = "day5";
+                break;
+            case "Saturday":
+                day2 = "day6";
+                break;
+        }
         String class1 = class1Spinner.getSelectedItem().toString();
         String class2 = class2Spinner.getSelectedItem().toString();
 
@@ -207,6 +294,8 @@ public class NavigationActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference timetableCollection = db.collection("timetable");
 
+        String finalDay = day2;
+        String finalDay1 = day1;
         timetableCollection.document(day1).collection("classes")
                 .whereEqualTo("subject", class1)
                 .get()
@@ -215,7 +304,7 @@ public class NavigationActivity extends AppCompatActivity {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if (!queryDocumentSnapshots.isEmpty()) {
                             String docId1 = queryDocumentSnapshots.getDocuments().get(0).getId();
-                            timetableCollection.document(day2).collection("classes")
+                            timetableCollection.document(finalDay).collection("classes")
                                     .whereEqualTo("subject", class2)
                                     .get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -225,7 +314,7 @@ public class NavigationActivity extends AppCompatActivity {
                                                 String docId2 = queryDocumentSnapshots.getDocuments().get(0).getId();
 
                                                 // Swap the data of the selected classes in Firestore
-                                                swapClassesInFirestore(day1, day2, docId1, docId2);
+                                                swapClassesInFirestore(finalDay1, finalDay, docId1, docId2);
                                             } else {
 //                                                Log.d(TAG, "No document found for " + day2 + " - " + class2);
                                             }
@@ -292,6 +381,7 @@ public class NavigationActivity extends AppCompatActivity {
                                                                     public void onSuccess(Void aVoid) {
                                                                         // Notify user that swap operation is successful
                                                                         Toast.makeText(NavigationActivity.this, "Classes swapped successfully", Toast.LENGTH_SHORT).show();
+
 //                                                                        showBookmark(day1, day2, docId1, docId2);
                                                                     }
                                                                 })
